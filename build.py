@@ -10,4 +10,6 @@ except:
     version = dom.getElementsByTagName("em:version")[0].firstChild.nodeValue
     dom.unlink()
     xpi = "mintrayr-{}.xpi".format(version)
-sys.exit(build(".", xpi))
+
+build.build(".", xpi)
+sys.exit()

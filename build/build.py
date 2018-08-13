@@ -10,13 +10,13 @@ except ImportError:
     print("Install path.py (via pip)")
     sys.exit(1)
 
-try:
-    from .cmp_listed_locales import cmp_listed_locales
-except ImportError as ex:
-    from warnings import warn
-    warn("cannot compare locales ({})".format(ex))
-    def cmp_listed_locales(dirname):
-        pass
+# try:
+#     from .cmp_listed_locales import cmp_listed_locales
+# except ImportError as ex:
+#     from warnings import warn
+#     warn("cannot compare locales ({})".format(ex))
+#     def cmp_listed_locales(dirname):
+#         pass
 
 from .context import ZipFileMinorCompression
 
@@ -60,14 +60,20 @@ def build(basedir, outfile):
     basedir = Path(basedir)
     if not basedir.endswith("/"):
         basedir += "/"
-    jar_files = (os.path.dirname(os.path.realpath(__file__)) / "jar.files").lines(retain=False)
-    xpi_files = (os.path.dirname(os.path.realpath(__file__)) / "xpi.files").lines(retain=False)
+    jar_files_name = ("{}/jar.files".format(os.path.dirname(os.path.realpath(__file__))))
+    fo = open(jar_files_name, "r+")
+    jar_files = fo.readlines()
+    fo.close()
+    xpi_files_name = ("{}/xpi.files".format(os.path.dirname(os.path.realpath(__file__))))
+    fo2 = open(xpi_files_name, "r+")
+    xpi_files = fo2.readlines()
+    fo2.close()
 
-    print("verifying locales")
-    try:
-        cmp_listed_locales(basedir)
-    except:
-        print("WARN: locales did not verify", file=sys.stderr)
+    # print("verifying locales")
+    # try:
+    #    cmp_listed_locales(basedir)
+    # except:
+    #    print("WARN: locales did not verify", file=sys.stderr)
 
     with ZipFileMinorCompression(), BytesIO() as xpi:
         with ZipOutFile(xpi, method=ZIP_DEFLATED) as zp:

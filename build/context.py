@@ -45,4 +45,3 @@ class ZipFileMinorCompression(object):
         if self.__minor_compression:
             zlib.compressobj = self.__orig_compressobj
         return False
-

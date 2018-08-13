@@ -1,5 +1,5 @@
-# mintrayr
-Mozilla extension: Minimize windows into the system tray (Firefox, Thunderbird, Seamonkey, Instantbird)
+# Mintray Reloaded
+Thunderbird add-on: Minimize windows into the system tray
 
 # Developing the extension
 
